@@ -1,0 +1,19 @@
+##### To start a new app ##### 
+    python3 manage.py startapp <name>
+Then - settings.py to edit list ('<name>.apps.<name>Config')
+also <name>Config is a class name in the app's apps.py file
+
+
+##### To create views/interface logic #####
+Define different functions 
+pass request, directory, dictonary
+
+
+##### To create template #####
+create dir <name>/templates/<name>/ here store templates for this app
+name should be what is defined in views.py
+
+##### To add urls #####
+There are 2 ways to add urls for an app:
+1> In the 'Django_project' dir
+2> In the newly created app dir
