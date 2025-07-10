@@ -15,5 +15,5 @@ name should be what is defined in views.py
 
 ##### To add urls #####
 There are 2 ways to add urls for an app:
-1> In the 'Django_project' dir
+1> In the 'Django_webApp' dir
 2> In the newly created app dir
