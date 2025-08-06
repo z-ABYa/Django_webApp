@@ -13,6 +13,7 @@ pass request, directory, dictonary
 create dir <name>/templates/<name>/ here store templates for this app
 name should be what is defined in views.py
 
+
 ##### To add urls #####
 There are 2 ways to add urls for an app:
 1> In the 'Django_webApp' dir
