@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-b0y)ro5k)o0w)l&$oq_$d9xv%^llc4z@*nhak@jgyrv^3$6!_z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
 
@@ -80,11 +80,10 @@ WSGI_APPLICATION = 'Django_webApp.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+   'default': dj_database_url.config(
+    default=os.environ.get('DATABASE_URL'),
+    conn_max_age=600,  # keeps DB connections alive for 10 minutes
+)
 }
 
 
