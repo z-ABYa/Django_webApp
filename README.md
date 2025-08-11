@@ -13,7 +13,7 @@ This project is designed to demonstrate Django basics such as models, views, tem
 ## Tech Stack
 	•	Backend: Django (Python)
 	•	Frontend: HTML, CSS, Bootstrap
-	•	Database: SQLite (default, can be replaced with PostgreSQL/MySQL)
+	•	Database: SQLite (Development)
 	•	Authentication: Django’s built-in authentication
 
 ## Installation & Setup
@@ -44,3 +44,12 @@ python manage.py createsuperuser
    ```
 python manage.py runserver
   ```
+## Future Improvements
+	•	Add categories/tags
+	•	Implement search functionality
+	•	Allow image uploads for posts
+	•	Add pagination
+
+## License
+
+This project is licensed under the MIT License.
