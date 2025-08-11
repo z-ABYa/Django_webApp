@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'Django_webApp.wsgi.application'
 
 DATABASES = {
    'default': dj_database_url.config(
-    default=os.environ.get('DATABASE_URL'),
+    default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
     conn_max_age=600,  # keeps DB connections alive for 10 minutes
 )
 }
