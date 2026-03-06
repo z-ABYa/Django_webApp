@@ -1,0 +1,41 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class="page-narrow">
+  <div class="about-hero fade-up">
+    <div class="page-eyebrow">Who we are</div>
+    <h1 class="page-title">About Django Unblogged</h1>
+    <p class="page-subtitle">A quiet corner of the internet for clear thinking and good writing.</p>
+  </div>
+
+  <div class="about-body fade-up fade-up-delay-1">
+    <p>
+      Django Unblogged is a minimal, distraction-free blogging platform built for writers
+      who care more about their words than their metrics. No algorithmic feeds.
+      No engagement hacks. Just honest writing, beautifully presented.
+    </p>
+    <p>
+      Whether you're documenting a project, sharing an opinion, or writing just for the
+      pleasure of it — this is your platform.
+    </p>
+
+    <hr class="divider">
+
+    <h2 style="font-size:1.3rem; margin-bottom:0.75rem;">Our values</h2>
+    <p>Clarity over cleverness. Depth over virality. Readers over algorithms.</p>
+
+    <hr class="divider">
+
+    {% if not user.is_authenticated %}
+    <div style="text-align:center; margin-top:2rem;">
+      <a class="btn-ink" href="{% url 'register' %}">Join and start writing</a>
+    </div>
+    {% else %}
+    <div style="text-align:center; margin-top:2rem;">
+      <a class="btn-ink" href="{% url 'post-create' %}">Write a new post</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock content %}

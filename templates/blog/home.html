@@ -1,0 +1,128 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class="page-container">
+
+  <!-- ── Main Feed ─────────────────────────────────── -->
+  <div class="content-col">
+
+    <!-- Feed header -->
+    <div class="mb-4 fade-up">
+      <div class="page-eyebrow">Latest Stories</div>
+      <h1 class="page-title">What's on the page</h1>
+      <p class="page-subtitle">Words worth reading, ideas worth sharing.</p>
+    </div>
+
+    <!-- Post cards -->
+    <div class="post-feed">
+      {% for post in posts %}
+      <article class="post-card fade-up" onclick="window.location='{% url 'post-detail' post.id %}'">
+
+        <img class="post-avatar"
+             src="{{ post.author.profile.image.url }}"
+             alt="{{ post.author.username }}'s avatar">
+
+        <div class="post-card-body">
+          <div class="post-meta">
+            <a class="post-author-link"
+               href="{% url 'user-posts' post.author.username %}"
+               onclick="event.stopPropagation()">
+              {{ post.author }}
+            </a>
+            <span class="post-meta-sep">·</span>
+            <span class="post-date">{{ post.date_posted|date:"N j, Y" }}</span>
+          </div>
+
+          <h2 class="post-title">
+            <a href="{% url 'post-detail' post.id %}" onclick="event.stopPropagation()">
+              {{ post.title }}
+            </a>
+          </h2>
+
+          <p class="post-excerpt">{{ post.content }}</p>
+
+          <span class="post-read-more">Read</span>
+        </div>
+
+      </article>
+      {% empty %}
+        <div class="auth-card" style="text-align:center; padding: 3rem;">
+          <div style="font-size:2.5rem; margin-bottom:1rem;">✦</div>
+          <h3 class="font-display" style="font-size:1.2rem;">No posts yet.</h3>
+          <p class="text-muted-ink" style="font-size:0.9rem; margin-top:0.5rem;">
+            Be the first to share something worth reading.
+          </p>
+          {% if user.is_authenticated %}
+            <a class="btn-ink mt-md" href="{% url 'post-create' %}">Write a post</a>
+          {% else %}
+            <a class="btn-ink mt-md" href="{% url 'register' %}">Join and write</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <div class="pagination-wrap">
+      {% if page_obj.has_previous %}
+        <a href="?page=1" class="page-btn">« First</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="page-btn">‹ Prev</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a href="?page={{ num }}" class="page-btn active">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a href="?page={{ num }}" class="page-btn">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="page-btn">Next ›</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="page-btn">Last »</a>
+      {% endif %}
+    </div>
+    {% endif %}
+
+  </div><!-- /content-col -->
+
+  <!-- ── Sidebar ─────────────────────────────────── -->
+  <aside class="sidebar-col">
+    <div class="sidebar">
+
+      <div class="sidebar-block fade-up fade-up-delay-1">
+        <div class="sidebar-heading">Explore</div>
+        <ul class="sidebar-list">
+          <li>Latest Posts</li>
+          <li>Announcements</li>
+          <li>Calendars</li>
+          <li>Community</li>
+        </ul>
+      </div>
+
+      {% if not user.is_authenticated %}
+      <div class="sidebar-block fade-up fade-up-delay-2" style="text-align:center;">
+        <div class="sidebar-heading">Join the conversation</div>
+        <p style="font-size:0.88rem; color:var(--ink-muted); margin-bottom:1.25rem;">
+          Create an account to write, comment, and connect.
+        </p>
+        <a class="btn-ink" href="{% url 'register' %}" style="width:100%; justify-content:center;">Get started</a>
+      </div>
+      {% endif %}
+
+      {% if user.is_authenticated %}
+      <div class="sidebar-block fade-up fade-up-delay-2" style="text-align:center;">
+        <div class="sidebar-heading">Your writing</div>
+        <p style="font-size:0.88rem; color:var(--ink-muted); margin-bottom:1.25rem;">
+          Share something new with the world.
+        </p>
+        <a class="btn-ink" href="{% url 'post-create' %}" style="width:100%; justify-content:center;">+ New Post</a>
+      </div>
+      {% endif %}
+
+    </div>
+  </aside>
+
+</div>
+
+{% endblock content %}

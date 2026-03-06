@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class="page-narrow" style="padding-top: 2rem;">
+  <div class="delete-card fade-up">
+
+    <div class="delete-icon">🗑</div>
+
+    <h2 class="delete-title">Delete this post?</h2>
+
+    <p class="delete-message">
+      You're about to permanently delete
+      <span class="delete-post-name">"{{ object.title }}"</span>.
+      This action cannot be undone.
+    </p>
+
+    <form method="POST" class="delete-actions">
+      {% csrf_token %}
+      <button type="submit" class="btn-ink btn-danger-custom">Yes, delete it</button>
+      <a href="{% url 'post-detail' object.id %}" class="btn-ink btn-outline">Keep it</a>
+    </form>
+
+  </div>
+</div>
+
+{% endblock content %}

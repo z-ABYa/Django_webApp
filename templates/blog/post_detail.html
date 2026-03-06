@@ -1,0 +1,89 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class="page-container">
+
+  <!-- ── Article ──────────────────────────────────── -->
+  <div class="content-col">
+    <article class="fade-up">
+
+      <!-- Breadcrumb -->
+      <div class="mb-3">
+        <a href="{% url 'blog-home' %}" class="font-mono text-muted-ink"
+           style="font-size:0.75rem; letter-spacing:0.06em; text-transform:uppercase;">
+          ← All Posts
+        </a>
+      </div>
+
+      <!-- Title -->
+      <header class="article-header">
+        <h1 class="article-title">{{ object.title }}</h1>
+      </header>
+
+      <!-- Byline -->
+      <div class="article-byline">
+        <img class="byline-avatar"
+             src="{{ post.author.profile.image.url }}"
+             alt="{{ object.author }}'s avatar">
+
+        <div class="byline-info">
+          <div class="byline-name">
+            <a href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
+          </div>
+          <div class="byline-date">{{ object.date_posted|date:"l, N j, Y" }}</div>
+        </div>
+
+        {% if object.author == user %}
+        <div class="byline-actions">
+          <a class="btn-ink btn-outline" href="{% url 'post-update' object.id %}">Edit</a>
+          <a class="btn-ink btn-danger-custom" href="{% url 'post-delete' object.id %}">Delete</a>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Body -->
+      <div class="article-body">
+        {{ object.content|linebreaks }}
+      </div>
+
+      <hr class="article-divider">
+
+      <!-- Author card -->
+      <div class="post-card" style="cursor:default; margin-top:0;"
+           onclick="window.location='{% url 'user-posts' object.author.username %}'">
+        <img class="post-avatar" src="{{ post.author.profile.image.url }}"
+             alt="{{ object.author }}'s avatar" style="width:56px;height:56px;">
+        <div class="post-card-body">
+          <div class="page-eyebrow" style="margin-bottom:0.25rem;">Written by</div>
+          <div class="byline-name" style="font-size:1.05rem;">{{ object.author }}</div>
+          <div style="font-size:0.85rem; color:var(--ink-muted); margin-top:0.25rem;">
+            See all posts by this author →
+          </div>
+        </div>
+      </div>
+
+    </article>
+  </div>
+
+  <!-- ── Sidebar ─────────────────────────────────── -->
+  <aside class="sidebar-col">
+    <div class="sidebar">
+      <div class="sidebar-block fade-up">
+        <div class="sidebar-heading">Navigation</div>
+        <ul class="sidebar-list">
+          <li><a href="{% url 'blog-home' %}">All posts</a></li>
+          <li><a href="{% url 'user-posts' object.author.username %}">Posts by {{ object.author }}</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'post-create' %}">Write a post</a></li>
+          {% if object.author == user %}
+          <li><a href="{% url 'post-update' object.id %}">Edit this post</a></li>
+          {% endif %}
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+{% endblock content %}

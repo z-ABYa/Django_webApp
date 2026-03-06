@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="page-narrow" style="padding-top: 1rem;">
+  <div class="form-section fade-up">
+
+    <div class="mb-4">
+      <div class="page-eyebrow">
+        {% if object %}Edit Post{% else %}New Post{% endif %}
+      </div>
+      <h1 class="page-title" style="font-size:1.75rem;">
+        {% if object %}Update your story{% else %}Tell your story{% endif %}
+      </h1>
+      <p class="page-subtitle">
+        {% if object %}Make your changes below and save.{% else %}Put your thoughts into words.{% endif %}
+      </p>
+    </div>
+
+    <hr class="divider" style="margin-top:0;">
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class="mt-md d-flex gap-2 align-items-center">
+        <button type="submit" class="btn-ink">
+          {% if object %}Save Changes{% else %}Publish Post{% endif %}
+        </button>
+        <a href="{% url 'blog-home' %}" class="btn-ink btn-outline">Cancel</a>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+{% endblock content %}

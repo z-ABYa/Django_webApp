@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="auth-wrapper">
+  <div class="auth-card fade-up">
+
+    <div class="auth-logo">
+      <div class="auth-logo-mark">✦ Django <span>Unblogged</span></div>
+    </div>
+
+    <h1 class="auth-title">Welcome back</h1>
+    <p class="auth-subtitle">Sign in to continue writing.</p>
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form|crispy }}
+
+      <div style="text-align:right; margin-top:-0.5rem; margin-bottom:1.25rem;">
+        <a href="{% url 'password_reset' %}" class="font-mono text-muted-ink"
+           style="font-size:0.75rem; letter-spacing:0.04em;">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn-ink" style="width:100%; justify-content:center;">
+        Log In
+      </button>
+    </form>
+
+    <hr class="auth-divider">
+
+    <p class="auth-footer-text">
+      Don't have an account? <a href="{% url 'register' %}">Sign up</a>
+    </p>
+
+  </div>
+</div>
+
+{% endblock content %}
