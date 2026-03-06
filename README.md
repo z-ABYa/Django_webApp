@@ -20,7 +20,7 @@ This project is designed to demonstrate Django basics such as models, views, tem
 ## Installation & Setup
 1.	Clone the repository
    ```
-    git clone https://github.com/username/django-blog.git
+    git clone https://github.com/Z-ABYa/django_webApp.git
     cd django-blog
   ```
 2.	Create and activate a virtual environment
@@ -49,7 +49,6 @@ python manage.py runserver
 	•	Add categories/tags
 	•	Implement search functionality
 	•	Allow image uploads for posts
-	•	Add pagination
 
 ## License
 
